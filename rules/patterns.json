@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "detectors": {
+    "D1": {
+      "name": "版本编号连续性",
+      "severity": "bug",
+      "patterns": [
+        {"regex": "(v\\d+\\.\\d+\\.\\d+)", "description": "检测 sub-patch 版本号是否出现在错误的章节上下文中"},
+        {"regex": "(v\\d+\\.\\d+)(?!\\.\\d)", "description": "检测 major.minor 版本号是否与所在章节标题中的版本号不一致"}
+      ],
+      "fix_strategy": "rename"
+    },
+    "D2": {
+      "name": "模块聚合度",
+      "severity": "structure",
+      "patterns": [
+        {"type": "topic_grouping", "description": "按主题关键词分组章节，检测同主题章节间隔 >500 行"}
+      ],
+      "fix_strategy": "move_section"
+    },
+    "D3": {
+      "name": "标题层级冲突",
+      "severity": "bug",
+      "patterns": [
+        {"regex": "^## [一二三四五六七八九十]、", "description": "检测子模块中出现的顶级中文编号标题"}
+      ],
+      "fix_strategy": "downgrade_heading"
+    },
+    "D4": {
+      "name": "Description 精简度",
+      "severity": "optimize",
+      "patterns": [
+        {"type": "length_check", "threshold": 300, "description": "description 字符数超过 300 告警"},
+        {"regex": "v\\d+\\.\\d+", "context": "yaml_description", "description": "description 中包含多个版本号堆砌"}
+      ],
+      "fix_strategy": "simplify_description"
+    },
+    "D5": {
+      "name": "重复内容",
+      "severity": "structure",
+      "patterns": [
+        {"type": "simhash", "threshold": 0.85, "description": "相邻章节内容相似度 >0.85 标记为重复"}
+      ],
+      "fix_strategy": "deduplicate"
+    },
+    "D6": {
+      "name": "章节编号一致性",
+      "severity": "structure",
+      "patterns": [
+        {"type": "sequence_check", "sequence": ["一","二","三","四","五","六","七","八","九"], "description": "检测中文编号是否连续无跳跃"}
+      ],
+      "fix_strategy": "renumber"
+    },
+    "D7": {
+      "name": "Version 一致性",
+      "severity": "bug",
+      "patterns": [
+        {"type": "cross_validation", "fields": ["yaml.version", "content.max_version"], "description": "YAML version 与内容最新版本号比对"}
+      ],
+      "fix_strategy": "update_version"
+    },
+    "D8": {
+      "name": "代码块语言标记",
+      "severity": "optimize",
+      "patterns": [
+        {"type": "code_block_check", "description": "检测 ``` 后是否缺少语言标记"}
+      ],
+      "fix_strategy": "add_language"
+    },
+    "D9": {
+      "name": "引用有效性",
+      "severity": "optimize",
+      "patterns": [
+        {"regex": "(?:见|参见|参考|详见)\\s*v?(\\d+\\.\\d+)\\s*(?:节|章|模块)", "description": "检测内部引用目标是否存在"}
+      ],
+      "fix_strategy": "fix_reference"
+    },
+    "D10": {
+      "name": "YAML 完整性",
+      "severity": "bug",
+      "patterns": [
+        {"type": "field_check", "required": ["name", "description", "version"], "description": "检查 YAML frontmatter 三必填字段"}
+      ],
+      "fix_strategy": "add_field"
+    }
+  }
+}

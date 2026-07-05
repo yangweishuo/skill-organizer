@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "run_count": 0,
+  "detectors": {
+    "D1": {"weight": 0.90, "hits": 0, "false_positives": 0, "dormant": false},
+    "D2": {"weight": 0.70, "hits": 0, "false_positives": 0, "dormant": false},
+    "D3": {"weight": 0.85, "hits": 0, "false_positives": 0, "dormant": false},
+    "D4": {"weight": 0.50, "hits": 0, "false_positives": 0, "dormant": false},
+    "D5": {"weight": 0.40, "hits": 0, "false_positives": 0, "dormant": false},
+    "D6": {"weight": 0.60, "hits": 0, "false_positives": 0, "dormant": false},
+    "D7": {"weight": 0.80, "hits": 0, "false_positives": 0, "dormant": false},
+    "D8": {"weight": 0.30, "hits": 0, "false_positives": 0, "dormant": false},
+    "D9": {"weight": 0.35, "hits": 0, "false_positives": 0, "dormant": false},
+    "D10": {"weight": 0.95, "hits": 0, "false_positives": 0, "dormant": false}
+  },
+  "custom_rules": [],
+  "file_history": [],
+  "adaptive_strategies": {
+    "large_file_chunking": true,
+    "chunk_lines": 5000
+  }
+}
